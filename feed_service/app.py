@@ -5,11 +5,7 @@ app = Flask(__name__)
 CORS(app)
 
 # In-memory message storage
-messages = [
-    {"id": 1, "username": "user1", "content": "Hello World!", "likes": 0},
-    {"id": 2, "username": "user2", "content": "This is my second message!", "likes": 0},
-    {"id": 3, "username": "user3", "content": "Loving this app!", "likes": 0},
-]
+messages = []
 
 @app.route('/')
 def home():

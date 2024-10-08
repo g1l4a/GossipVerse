@@ -34,6 +34,7 @@ textarea {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box
 }
 
 button {
@@ -57,4 +58,21 @@ button:hover {
 #feed li {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+}
+
+.like-section {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.like-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.like-count {
+    margin-left: 5px;
+    font-weight: bold;
 }

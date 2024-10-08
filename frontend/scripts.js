@@ -1,6 +1,7 @@
 const API_URL = 'http://localhost:5002';  // Update this to your actual message service URL
 const USER_API_URL = 'http://localhost:5001';
 const FEED_API_URL = 'http://localhost:5004';
+const LIKE_API_URL = 'http://localhost:5003';
 
 async function registerUser() {
     const username = document.getElementById('username-input').value;
@@ -115,16 +116,56 @@ async function loadFeed() {
         // Display messages in the feed
         messages.forEach(message => {
             const listItem = document.createElement('li');
-            listItem.textContent = `[ID: ${message.id}] ${message.username}: ${message.content}`;
+            listItem.innerHTML = `
+                [ID: ${message.id}] ${message.username}: ${message.content}
+                <span class="like-section">
+                    <button class="like-button" data-id="${message.id}">❤️</button>
+                    <span class="like-count">${message.likes || 0}</span>
+                </span>
+            `;
             feedElement.appendChild(listItem);
         });
+
+        // Attach event listeners for all like buttons
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', async function () {
+                const messageId = this.getAttribute('data-id');
+                await likeMessage(messageId, this);
+            });
+        });
+
     } catch (error) {
         console.error('Error loading feed:', error);
         alert('Error loading feed: ' + error.message);
     }
 }
 
+async function likeMessage(messageId, button) {
+    try {
+        const response = await fetch(`${LIKE_API_URL}/like`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message_id: messageId })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        // Update the like count after a successful request
+        const result = await response.json();
+        const likeCountElement = button.nextElementSibling;
+        let currentLikes = parseInt(likeCountElement.textContent);
+        likeCountElement.textContent = currentLikes + 1;
+
+    } catch (error) {
+        console.error('Error liking message:', error);
+        alert('Error liking message: ' + error.message);
+    }
+}
 
 window.onload = () => {
     loadFeed();  // Automatically load feed when the page is loaded
-};
+}
