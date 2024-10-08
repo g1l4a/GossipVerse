@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5002';  // Update this to your actual message service URL
+const API_URL = 'http://localhost:5002';
 const USER_API_URL = 'http://localhost:5001';
 const FEED_API_URL = 'http://localhost:5004';
 const LIKE_API_URL = 'http://localhost:5003';
@@ -16,7 +16,7 @@ async function registerUser() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: username })
+            body: JSON.stringify({username: username})
         });
 
         if (!response.ok) {
@@ -51,7 +51,7 @@ async function postMessage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: username, content: content })
+            body: JSON.stringify({username: username, content: content})
         });
 
         if (!response.ok) {
@@ -60,7 +60,7 @@ async function postMessage() {
 
         const result = await response.json();
         document.getElementById('post-status').innerText = 'Message posted successfully!';
-        document.getElementById('message-input').value = ''; // Clear input after posting
+        document.getElementById('message-input').value = '';
     } catch (error) {
         document.getElementById('post-status').innerText = 'Error posting message: ' + error.message;
         console.error('Error posting message:', error);
@@ -82,9 +82,8 @@ async function loadFeed() {
 
         const messages = await response.json();
         const feedElement = document.getElementById('feed');
-        feedElement.innerHTML = ''; // Clear the current feed
+        feedElement.innerHTML = '';
 
-        // Display messages in the feed
         messages.forEach(message => {
             const listItem = document.createElement('li');
             listItem.innerHTML = `
@@ -97,7 +96,6 @@ async function loadFeed() {
             feedElement.appendChild(listItem);
         });
 
-        // Attach event listeners for all like buttons
         document.querySelectorAll('.like-button').forEach(button => {
             button.addEventListener('click', async function () {
                 const messageId = this.getAttribute('data-id');
@@ -118,14 +116,13 @@ async function likeMessage(messageId, button) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message_id: messageId })
+            body: JSON.stringify({message_id: messageId})
         });
 
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
 
-        // Update the like count after a successful request
         const result = await response.json();
         const likeCountElement = button.nextElementSibling;
         let currentLikes = parseInt(likeCountElement.textContent);
@@ -138,5 +135,5 @@ async function likeMessage(messageId, button) {
 }
 
 window.onload = () => {
-    loadFeed();  // Automatically load feed when the page is loaded
+    loadFeed();
 }
