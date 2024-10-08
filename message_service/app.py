@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
 import requests  # To notify the feed service
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 messages = []
 
