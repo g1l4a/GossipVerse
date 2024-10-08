@@ -25,7 +25,7 @@ a frontend interface.
 
    ```bash
    git clone https://github.com/g1l4a/GossipVerse
-   cd message-feed-app
+   cd GossipVerse
    ```
 
 2. **Create a Virtual Environment**
@@ -43,7 +43,7 @@ a frontend interface.
 
    ```bash
    # For Message Service
-   cd message_service
+   cd ../message_service
    pip install -r requirements.txt
 
    # For Feed Service
