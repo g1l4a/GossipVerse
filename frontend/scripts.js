@@ -67,35 +67,6 @@ async function postMessage() {
     }
 }
 
-// async function loadFeed() {
-//     try {
-//         const response = await fetch(`${API_URL}/feed`, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok ' + response.statusText);
-//         }
-
-//         const messages = await response.json();
-//         const feedElement = document.getElementById('feed');
-//         feedElement.innerHTML = ''; // Clear the current feed
-
-//         // Display messages in the feed
-//         messages.forEach(message => {
-//             const listItem = document.createElement('li');
-//             listItem.textContent = `[ID: ${message.id}] ${message.username}: ${message.content}`;
-//             feedElement.appendChild(listItem);
-//         });
-//     } catch (error) {
-//         console.error('Error loading feed:', error);
-//         alert('Error loading feed: ' + error.message);
-//     }
-// }
-
 async function loadFeed() {
     try {
         const response = await fetch(`${FEED_API_URL}/feed`, {
