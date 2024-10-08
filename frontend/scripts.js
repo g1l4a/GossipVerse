@@ -88,7 +88,7 @@ async function loadFeed() {
         messages.forEach(message => {
             const listItem = document.createElement('li');
             listItem.innerHTML = `
-                [ID: ${message.id}] ${message.username}: ${message.content}
+                ${message.username}: ${message.content}
                 <span class="like-section">
                     <button class="like-button" data-id="${message.id}">❤️</button>
                     <span class="like-count">${message.likes || 0}</span>
