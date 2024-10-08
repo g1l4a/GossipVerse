@@ -1,4 +1,6 @@
 const API_URL = 'http://localhost:5002';  // Update this to your actual message service URL
+const USER_API_URL = 'http://localhost:5001';
+const FEED_API_URL = 'http://localhost:5004';
 
 async function registerUser() {
     const username = document.getElementById('username-input').value;
@@ -8,7 +10,7 @@ async function registerUser() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/users`, {
+        const response = await fetch(`${USER_API_URL}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,9 +66,38 @@ async function postMessage() {
     }
 }
 
+// async function loadFeed() {
+//     try {
+//         const response = await fetch(`${API_URL}/feed`, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok ' + response.statusText);
+//         }
+
+//         const messages = await response.json();
+//         const feedElement = document.getElementById('feed');
+//         feedElement.innerHTML = ''; // Clear the current feed
+
+//         // Display messages in the feed
+//         messages.forEach(message => {
+//             const listItem = document.createElement('li');
+//             listItem.textContent = `[ID: ${message.id}] ${message.username}: ${message.content}`;
+//             feedElement.appendChild(listItem);
+//         });
+//     } catch (error) {
+//         console.error('Error loading feed:', error);
+//         alert('Error loading feed: ' + error.message);
+//     }
+// }
+
 async function loadFeed() {
     try {
-        const response = await fetch(`${API_URL}/feed`, {
+        const response = await fetch(`${FEED_API_URL}/feed`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,3 +123,8 @@ async function loadFeed() {
         alert('Error loading feed: ' + error.message);
     }
 }
+
+
+window.onload = () => {
+    loadFeed();  // Automatically load feed when the page is loaded
+};

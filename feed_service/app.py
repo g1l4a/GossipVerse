@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # In-memory message storage
 messages = [
@@ -33,6 +35,7 @@ def like_message(message_id):
             message["likes"] += 1
             return jsonify({"status": "Message liked"}), 201
     return jsonify({"error": "Message not found"}), 404
+
 
 if __name__ == "__main__":
     app.run(port=5004)

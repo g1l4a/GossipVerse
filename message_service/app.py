@@ -32,5 +32,9 @@ def post_message():
     
     return jsonify({"message": "Message posted successfully!"}), 201
 
+@app.route('/feed', methods=['GET'])
+def get_feed():
+    return jsonify(messages[-10:])
+
 if __name__ == "__main__":
     app.run(port=5002)
