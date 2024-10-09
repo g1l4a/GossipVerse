@@ -1,4 +1,4 @@
-# TEAM 16
+# Software Architecture - Team 16 - Homework 5
 # Message and Feed Application
 
 A simple web application that allows users to register, post messages, and
